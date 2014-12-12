@@ -227,6 +227,12 @@ class S3ClientTest extends \Guzzle\Tests\GuzzleTestCase
         $this->assertEquals(array(''), S3Client::explodeKey(null));
     }
 
+    public function testExplodesKeysForLegacyKeys()
+    {
+        $this->assertEquals(array('20557', '/', 'logo'), S3Client::explodeLegacyKey('20557//logo'));
+        $this->assertEquals(array('20557', 'logo'), S3Client::explodeLegacyKey('20557/logo'));
+    }
+
     public function dataForCanCreateObjectUrlsTest()
     {
         return array(

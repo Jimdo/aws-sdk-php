@@ -458,6 +458,35 @@ class S3Client extends AbstractClient
     }
 
     /**
+     * Explode a prefixed key into an array of values
+     *
+     * @param string $key Key to explode
+     *
+     * @return array Returns the exploded
+     */
+    public static function explodeLegacyKey($key)
+    {
+        if (empty($key)) {
+            return array($key);
+        }
+
+        // Remove a leading slash if one is found
+        $a = explode('/', $key && $key[0] == '/' ? substr($key, 1) : $key);
+
+        // If we find an empty string it must have been a '/'.
+        return array_map(
+            function ($e) {
+                if (strlen($e) == 0) {
+                    return '/';
+                } else {
+                    return $e;
+                }
+            },
+            $a
+        );
+    }
+
+    /**
      * Register the Amazon S3 stream wrapper and associates it with this client object
      *
      * @return $this
