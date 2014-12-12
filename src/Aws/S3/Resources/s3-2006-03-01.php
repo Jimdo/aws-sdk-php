@@ -961,7 +961,7 @@ return array (
                     'type' => 'string',
                     'location' => 'uri',
                     'filters' => array(
-                        'Aws\\S3\\S3Client::explodeKey',
+                        'Aws\\S3\\S3Client::explodeLegacyKey',
                     ),
                 ),
                 'Range' => array(
